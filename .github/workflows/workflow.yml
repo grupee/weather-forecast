@@ -1,0 +1,31 @@
+name: Test Weather Forecast
+on:
+  workflow_dispatch: # ทำให้เรากดปุ่ม "Run workflow" เพื่อทดสอบได้ทันที
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Requests
+        run: pip install requests
+
+      - name: Execute Script
+        env:
+          ACCUWEATHER_API_KEY: ${{ secrets.ACCUWEATHER_API_KEY }}
+        run: python weather_test.py
+
+      - name: Commit Changes
+        run: |
+          git config --global user.name 'GitHub Action Bot'
+          git config --global user.email 'action@github.com'
+          git add README.md
+          git commit -m "Test: Update 5-day weather forecast" || echo "No changes to commit"
+          git push
