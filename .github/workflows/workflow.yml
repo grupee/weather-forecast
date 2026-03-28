@@ -20,7 +20,7 @@ jobs:
       - name: Execute Script
         env:
           ACCUWEATHER_API_KEY: ${{ secrets.ACCUWEATHER_API_KEY }}
-        run: python weather_test.py
+        run: python weather.py
 
       - name: Commit Changes
         run: |
