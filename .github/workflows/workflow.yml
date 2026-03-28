@@ -1,6 +1,9 @@
 name: Test Weather Forecast
 on:
-  workflow_dispatch: # ทำให้เรากดปุ่ม "Run workflow" เพื่อทดสอบได้ทันที
+  #workflow_dispatch: # ทำให้เรากดปุ่ม "Run workflow" เพื่อทดสอบได้ทันที
+  schedule:
+    - cron: '0 */4 * * *' # รันทุกนาทีที่ 0 ของทุกๆ 4 ชั่วโมง (เช่น 00:00, 04:00, 08:00, ...)
+  workflow_dispatch: # ยังคงปุ่มกดรันเองไว้สำหรับทดสอบ
 
 jobs:
   run-test:
