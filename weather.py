@@ -2,6 +2,18 @@ import os
 import requests
 from datetime import datetime
 
+# Mapping ไอคอนเบื้องต้น
+ICON_MAP = {
+    "Sunny": "☀️",
+    "Mostly sunny": "🌤️",
+    "Partly sunny": "⛅",
+    "Intermittent clouds": "☁️",
+    "Cloudy": "☁️",
+    "Rain": "🌧️",
+    "Showers": "🌦️",
+    "Mostly cloudy": "☁️"
+}
+
 # ข้อมูลเมืองที่คุณต้องการทดสอบ
 CITIES = [
     {"name": "Dali", "key": "2580103"},
@@ -31,8 +43,9 @@ def get_5day_forecast(city_name, location_key):
                 temp_min = day['Temperature']['Minimum']['Value']
                 temp_max = day['Temperature']['Maximum']['Value']
                 condition = day['Day']['IconPhrase']
+                icon = ICON_MAP.get(condition, "🌡️") # ถ้าไม่มีใน Map ให้ใช้ปรอท
                 
-                forecast_text += f"| {date_str} | {condition} | {temp_min} | {temp_max} |\n"
+                forecast_text += f"| {date_str} | {icon} <br> {condition} | {temp_min} | {temp_max} |\n"
             
             return forecast_text + "\n"
         else:
